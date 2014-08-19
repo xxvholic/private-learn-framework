@@ -7,10 +7,13 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing;
 use Symfony\Component\HttpKernel;
 use Symfony\Component\EventDispatcher\EventDispatcher;
+use Symfony\Component\HttpKernel\HttpCache\HttpCache;
+use Symfony\Component\HttpKernel\HttpCache\Store;
 
 require_once __DIR__.'/../src/Controller/LeapYearController.php';
 
-$request = Request::createFromGlobals();
+// $request = Request::createFromGlobals();
+$request = Request::create('/is_leap_year/2004');
  
 $routes = include __DIR__.'/../src/app.php';
 
@@ -26,6 +29,8 @@ $dispatcher->addSubscriber(new Simplex\ContentLengthListener());
 
 
 $framework = new Simplex\Framework($dispatcher, $matcher, $resolver);
-$response = $framework->handle($request);
+$framework = new HttpCache($framework, new Store(__DIR__.'/../app/cache'));
  
-$response->send();
+$framework->handle($request)->send();
+
+// var_dump($framework->getLog());
