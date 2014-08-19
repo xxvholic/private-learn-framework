@@ -1,0 +1,26 @@
+server {
+    listen 80;
+
+    root /var/www/private-learn-framework/web;
+
+    server_name xxvholic.com;
+    index index.php;
+
+    access_log /var/log/nginx/xxvholic.access.log;
+    error_log /var/log/nginx/xxvholic.error.log;
+
+    location / {
+        index index.php;
+            try_files $uri $uri/ @rewriteapp;
+        }
+
+        location @rewriteapp {
+            rewrite ^(.*)$ /index.php/$1 last;
+        }
+
+    location ~ ^/index\.php(/|$) {
+        fastcgi_pass unix:/var/run/php5-fpm.sock;
+        fastcgi_index index.php;
+        include fastcgi_params;
+    }
+}
