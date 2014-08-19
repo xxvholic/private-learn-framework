@@ -1,0 +1,3 @@
+hello:
+    path: /hello/{name}
+    defaults: { name: world }

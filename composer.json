@@ -1,6 +1,9 @@
 {
     "require": {
         "symfony/class-loader": "2.6.*@dev",
-        "symfony/http-foundation": "2.4.*@dev"
+        "symfony/http-foundation": "2.4.*@dev",
+        "symfony/routing": "2.6.*@dev",
+        "symfony/config": "2.6.*@dev",
+        "symfony/yaml": "2.6.*@dev"
     }
 }
